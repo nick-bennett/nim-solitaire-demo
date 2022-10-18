@@ -1,0 +1,82 @@
+### IntelliJ/Android Studio ###
+
+# - metadata
+/.idea/
+*.iml
+
+# - temporary files
+/captures/
+
+# - build output
+/out/
+
+
+### Eclipse ###
+
+# - metadata
+/.settings/
+/.metadata/
+.project
+.classpath
+
+# - build output
+/bin/
+
+
+### NetBeans ###
+
+# - metadata
+/nbproject/
+/.nb-gradle/
+
+# - build output
+/build/
+/nbbuild/
+/dist/
+/nbdist/
+
+
+### VS Code ###
+
+# - metadata
+.vscode/
+
+
+### Gradle ###
+
+# - temporary files
+/.gradle/
+
+# - local properties
+local.properties
+
+
+### Maven ###
+
+# - developer info
+HELP.md
+
+# - build output
+/target/
+
+
+### OS X ###
+
+# - metadata
+.DS_Store
+
+
+### Embedded database ###
+
+# Derby directory, as specified in src/main/resources/application.yml
+/db/
+
+# Derby log file
+derby.log
+
+
+### Floobits ###
+
+.floo*
+
+
