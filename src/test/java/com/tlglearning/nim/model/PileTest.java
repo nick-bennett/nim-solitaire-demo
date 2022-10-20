@@ -8,11 +8,18 @@ import org.junit.jupiter.api.function.Executable;
 class PileTest {
 
   @Test
+  void constructor_invalid() {
+    assertThrows(IllegalArgumentException.class, () -> new Pile(-1));
+  }
+
+  @Test
   void remove_valid() {
     Pile pile = new Pile(10);
-    assertEquals(7, pile.remove(3));
-    assertEquals(3, pile.getRemoved());
-    assertEquals(7, pile.getRemaining());
+    assertAll(
+        () -> assertEquals(7, pile.remove(3)),
+        () -> assertEquals(3, pile.getRemoved()),
+        () -> assertEquals(7, pile.getRemaining())
+    );
   }
 
   @Test
@@ -22,8 +29,17 @@ class PileTest {
   }
 
   @Test
-  void isEmpty() {
-    fail("Test not yet implemented"); // TODO: 2022-10-20 Implement tests (with expected return values of true and false) for isEmpty method of Pile class.
+  void isEmpty_some() {
+    Pile pile = new Pile(10);
+    pile.remove(9);
+    assertFalse(pile.isEmpty());
+  }
+
+  @Test
+  void isEmpty_none() {
+    Pile pile = new Pile(10);
+    pile.remove(10);
+    assertTrue(pile.isEmpty());
   }
 
 }

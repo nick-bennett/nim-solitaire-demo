@@ -4,8 +4,11 @@ import com.tlglearning.nim.model.Pile;
 
 public class PileView {
 
+  private static final String REMOVED = "\u2542";
+  private static final String REMAINING = "\u2503";
+
   public String toString(Pile pile) {
-    throw new UnsupportedOperationException("Not yet implemented."); // TODO: 2022-10-20 Construct and return a String representation of pile, using Unicode line drawing characters for removed and remaining.
+    return REMOVED.repeat(pile.getRemoved()) + REMAINING.repeat(pile.getRemaining());
   }
 
 }
