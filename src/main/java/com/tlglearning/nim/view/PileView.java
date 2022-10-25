@@ -8,7 +8,7 @@ public class PileView {
   private static final String REMAINING = "\u2503";
 
   public String toString(Pile pile) {
-    return REMOVED.repeat(pile.getRemoved()) + REMAINING.repeat(pile.getRemaining());
+    return REMOVED.repeat(pile.getRemoved()) + " " + REMAINING.repeat(pile.getRemaining());
   }
 
 }
