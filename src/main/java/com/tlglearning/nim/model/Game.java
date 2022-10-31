@@ -23,7 +23,9 @@ public class Game {
   }
 
   public void play(Pile pile, int quantity) throws IllegalArgumentException {
-    throw new UnsupportedOperationException("Not yet implemented"); // TODO: 2022-10-25 Implement to remove the specified quantity from the specified pile, and to update the state accordingly (how?).
+    // TODO: 2022-10-31 Verify that state is non-terminal before removing quantity from pile.
+    pile.remove(quantity);
+    state = isFinished() ? state.nextWinState() : state.nextMoveState();
   }
 
   public boolean isFinished() {
