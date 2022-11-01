@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Game {
 
-  private List<Pile> piles;
+  private final List<Pile> piles;
   private State state;
 
   public Game(State state, int[] pileSizes) throws IllegalArgumentException {
@@ -17,13 +17,13 @@ public class Game {
       piles.add(new Pile(size));
     }
     this.piles = piles;
-    if (isFinished()) {
-      this.state = state.nextWinState(); // TODO: 2022-10-27 Explore whether this should be allowed.
-    }
+    this.state = isFinished() ? state.nextMoveState().nextWinState() : state;
   }
 
   public void play(Pile pile, int quantity) throws IllegalArgumentException {
-    // TODO: 2022-10-31 Verify that state is non-terminal before removing quantity from pile.
+    if (state.isTerminal()) {
+      throw new IllegalStateException("Game already finished.");
+    }
     pile.remove(quantity);
     state = isFinished() ? state.nextWinState() : state.nextMoveState();
   }
@@ -40,9 +40,5 @@ public class Game {
   public State getState() {
     return state;
   }
-
-  // DONE: 2022-10-25 Create getters for piles and state.
-
-  // DONE: 2022-10-25 Create a test class for Game, with methods to test construction, play, and isFinished.
 
 }
