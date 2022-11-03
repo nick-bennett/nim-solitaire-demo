@@ -1,17 +1,37 @@
 package com.tlglearning.nim.view;
 
 import com.tlglearning.nim.model.Game;
+import com.tlglearning.nim.model.Game.Pile;
+import java.util.Iterator;
+import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class GameView {
 
+  private static final String PILE_SEPARATOR = System.lineSeparator().repeat(2);
+
   public String toString(Game game) {
     PileView pileView = new PileView();
-    // TODO: 2022-10-31 Include state and pile # information.
-    return game.getPiles()
-        .stream()
-        .map(pileView::toString)
-        .collect(Collectors.joining(System.lineSeparator()));
+    List<Pile> piles = game.getPiles();
+    Iterator<Pile> iterator = piles.iterator();
+    return Stream.concat(
+            IntStream.rangeClosed(1, piles.size())
+                .mapToObj((num) -> String.format("%d: %s", num, pileView.toString(iterator.next()))),
+            Stream.of(game.getState().toString())
+        )
+        .collect(Collectors.joining(PILE_SEPARATOR));
   }
 
+  public static class PileView {
+
+    private static final String REMOVED = "\u2542";
+    private static final String REMAINING = "\u2503";
+
+    public String toString(Pile pile) {
+      return REMOVED.repeat(pile.getRemoved()) + " " + REMAINING.repeat(pile.getRemaining());
+    }
+
+  }
 }
