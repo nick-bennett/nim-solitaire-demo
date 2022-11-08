@@ -9,7 +9,7 @@ public class GameController {
   private final Game game;
   private final GameView view;
 
-  public GameController(State initialState, int[] pileSizes) {
+  public GameController(State initialState, int... pileSizes) {
     game = new Game(initialState, pileSizes);
     view = new GameView();
   }

@@ -8,7 +8,7 @@ public class Game {
   private final List<Pile> piles;
   private State state;
 
-  public Game(State state, int[] pileSizes) throws IllegalArgumentException {
+  public Game(State state, int... pileSizes) throws IllegalArgumentException {
     if (state.isTerminal()) {
       throw new IllegalArgumentException("Game must start in a non-terminal state");
     }
