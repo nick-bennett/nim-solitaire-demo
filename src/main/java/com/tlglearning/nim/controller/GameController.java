@@ -8,7 +8,6 @@ import com.tlglearning.nim.view.MoveView;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,7 +21,6 @@ public class GameController {
   private final GameView gameView;
   private final MoveView moveView;
   private final Strategy strategy;
-  private final ResourceBundle bundle;
   private final String invalidMoveFormat;
 
   public GameController(
@@ -31,7 +29,6 @@ public class GameController {
     gameView = new GameView(bundle);
     moveView = new MoveView(bundle);
     this.strategy = strategy;
-    this.bundle = bundle;
     invalidMoveFormat = bundle.getString(INVALID_MOVE_FORMAT_KEY);
   }
 
@@ -46,7 +43,7 @@ public class GameController {
       } else {
         move = getAndApplyUserMove(reader);
       }
-      System.out.println(moveView.toString(state, move));
+      System.out.print(moveView.toString(state, move));
       state = game.getState();
     }
     System.out.print(gameView.toString(game));
