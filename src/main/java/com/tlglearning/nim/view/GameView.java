@@ -33,7 +33,7 @@ public class GameView {
         .collect(Collectors.joining(PILE_SEPARATOR, PREFIX, SUFFIX));
   }
 
-  public class PileView {
+  private class PileView {
 
     private static final String PILE_FORMAT_SINGLE_KEY = "pile_format_single";
     private static final String PILE_FORMAT_MULTIPLE_KEY = "pile_format_multiple";
