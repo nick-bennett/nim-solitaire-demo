@@ -4,6 +4,7 @@ import com.tlglearning.nim.model.Game;
 import com.tlglearning.nim.model.Game.Pile;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -12,6 +13,12 @@ public class GameView {
 
   private static final String PILE_SEPARATOR = System.lineSeparator().repeat(2);
 
+  private final ResourceBundle bundle;
+
+  public GameView(ResourceBundle bundle) {
+    this.bundle = bundle;
+  }
+
   public String toString(Game game) {
     PileView pileView = new PileView();
     List<Pile> piles = game.getPiles();
@@ -19,7 +26,7 @@ public class GameView {
     return Stream.concat(
             IntStream.rangeClosed(1, piles.size())
                 .mapToObj((num) -> String.format("%d: %s", num, pileView.toString(iterator.next()))),
-            Stream.of(game.getState().toString())
+            Stream.of(bundle.getString(game.getState().toString().toLowerCase()))
         )
         .collect(Collectors.joining(PILE_SEPARATOR));
   }
