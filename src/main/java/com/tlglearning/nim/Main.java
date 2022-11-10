@@ -1,6 +1,5 @@
 package com.tlglearning.nim;
 
-import com.tlglearning.nim.controller.GameController;
 import com.tlglearning.nim.controller.SessionController;
 import com.tlglearning.nim.model.Game.State;
 import com.tlglearning.nim.strategy.OptimalStrategy;

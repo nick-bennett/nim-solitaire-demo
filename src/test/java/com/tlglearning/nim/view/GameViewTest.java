@@ -1,7 +1,6 @@
 package com.tlglearning.nim.view;
 
 import com.tlglearning.nim.model.Game;
-import com.tlglearning.nim.model.Game.Pile;
 import com.tlglearning.nim.model.Game.State;
 import java.util.Random;
 import java.util.ResourceBundle;
