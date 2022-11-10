@@ -1,6 +1,5 @@
 package com.tlglearning.nim.view;
 
-import com.tlglearning.nim.model.Game;
 import com.tlglearning.nim.model.Game.State;
 import java.util.ResourceBundle;
 
@@ -17,9 +16,9 @@ public class MoveView {
     moveFormat = bundle.getString(MOVE_FORMAT_KEY);
   }
 
-  public String toString(Game game, int[] move) {
+  public String toString(State state, int[] move) {
     return String.format(
-        moveFormat, bundle.getString(game.getState().toString().toLowerCase() + PLAYER_KEY_SUFFIX),
+        moveFormat, bundle.getString(state.toString().toLowerCase() + PLAYER_KEY_SUFFIX),
         move[0], move[1]);
   }
 

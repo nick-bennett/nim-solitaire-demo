@@ -11,7 +11,9 @@ import java.util.stream.Stream;
 
 public class GameView {
 
-  private static final String PILE_SEPARATOR = System.lineSeparator().repeat(2);
+  private static final String PREFIX = System.lineSeparator();
+  private static final String PILE_SEPARATOR = PREFIX.repeat(2);
+  private static final String SUFFIX = "";
 
   private final ResourceBundle bundle;
 
@@ -25,19 +27,37 @@ public class GameView {
     Iterator<Pile> iterator = piles.iterator();
     return Stream.concat(
             IntStream.rangeClosed(1, piles.size())
-                .mapToObj((num) -> String.format("%d: %s", num, pileView.toString(iterator.next()))),
+                .mapToObj((num) -> pileView.toString(num, iterator.next())),
             Stream.of(bundle.getString(game.getState().toString().toLowerCase()))
         )
-        .collect(Collectors.joining(PILE_SEPARATOR));
+        .collect(Collectors.joining(PILE_SEPARATOR, PREFIX, SUFFIX));
   }
 
-  public static class PileView {
+  public class PileView {
 
-    private static final String REMOVED = "\u2542";
-    private static final String REMAINING = "\u2503";
+    private static final String PILE_FORMAT_SINGLE_KEY = "pile_format_single";
+    private static final String PILE_FORMAT_MULTIPLE_KEY = "pile_format_multiple";
+    private static final String REMOVED_CHARACTER = "\u2542";
+    private static final String REMAINING_CHARACTER = "\u2503";
 
-    public String toString(Pile pile) {
-      return REMOVED.repeat(pile.getRemoved()) + " " + REMAINING.repeat(pile.getRemaining());
+    private final String pileFormatSingle = bundle.getString(PILE_FORMAT_SINGLE_KEY);
+    private final String pileFormatMultiple = bundle.getString(PILE_FORMAT_MULTIPLE_KEY);
+
+    public String toString(int pileNumber, Pile pile) {
+      String representation;
+      int removed = pile.getRemoved();
+      int remaining = pile.getRemaining();
+      if (removed != 0 && remaining != 0) {
+        representation = String.format(pileFormatMultiple, pileNumber,
+            REMOVED_CHARACTER.repeat(removed), REMAINING_CHARACTER.repeat(remaining), remaining);
+      } else if (removed != 0) {
+        representation = String.format(pileFormatSingle, pileNumber,
+            REMOVED_CHARACTER.repeat(removed), remaining);
+      } else {
+        representation = String.format(pileFormatSingle, pileNumber,
+            REMAINING_CHARACTER.repeat(remaining), remaining);
+      }
+      return representation;
     }
 
   }

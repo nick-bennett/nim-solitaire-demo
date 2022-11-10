@@ -37,11 +37,18 @@ class GameViewTest {
 
   static class PileViewTest {
 
+    private ResourceBundle bundle;
+
+    @BeforeEach
+    void setUp() {
+      bundle = ResourceBundle.getBundle("ui-strings");
+    }
+
     @Test
     void testToString() {
       Pile pile = new Pile(15);
       pile.remove(5);
-      System.out.println(new GameView.PileView().toString(pile));
+      System.out.println(new GameView(bundle).new PileView().toString(1, pile));
     }
   }
 }
