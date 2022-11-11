@@ -9,13 +9,14 @@ import java.util.ResourceBundle;
 public class Main {
 
   private static final String BUNDLE_NAME = "ui-strings";
+  private static final int[] pileSizes = {3, 5, 7};
 
   public static void main(String[] args) throws IOException {
     new SessionController(
         State.PLAYER_1_MOVE,
         new OptimalStrategy(),
         ResourceBundle.getBundle(BUNDLE_NAME),
-        3, 5, 7
+        pileSizes
     ).play();
   }
 
