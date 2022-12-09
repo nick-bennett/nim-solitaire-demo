@@ -1,7 +1,7 @@
 package com.tlglearning.nim.controller;
 
 import com.tlglearning.nim.model.Game;
-import com.tlglearning.nim.model.Game.State;
+import com.tlglearning.nim.model.State;
 import com.tlglearning.nim.strategy.Strategy;
 import com.tlglearning.nim.view.GameView;
 import com.tlglearning.nim.view.MoveView;

@@ -1,7 +1,7 @@
 package com.tlglearning.nim.view;
 
 import com.tlglearning.nim.model.Game;
-import com.tlglearning.nim.model.Game.State;
+import com.tlglearning.nim.model.State;
 import java.util.Random;
 import java.util.ResourceBundle;
 import org.junit.jupiter.api.BeforeEach;

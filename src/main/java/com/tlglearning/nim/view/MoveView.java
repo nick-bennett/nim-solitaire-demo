@@ -1,6 +1,6 @@
 package com.tlglearning.nim.view;
 
-import com.tlglearning.nim.model.Game.State;
+import com.tlglearning.nim.model.State;
 import java.util.ResourceBundle;
 
 public class MoveView {

@@ -18,34 +18,34 @@ class GameTest {
   @Test
   void constructor_badState() {
     assertThrows(IllegalArgumentException.class,
-        () -> new Game(Game.State.PLAYER_1_WIN, pileSizes));
+        () -> new Game(State.PLAYER_1_WIN, pileSizes));
   }
 
   @Test
   void constructor_badPileSizes() {
     assertThrows(IllegalArgumentException.class,
-        () -> new Game(Game.State.PLAYER_1_MOVE, pileSizes));
+        () -> new Game(State.PLAYER_1_MOVE, pileSizes));
   }
 
   @Test
   void play_valid() {
-    Game game = new Game(Game.State.PLAYER_1_MOVE, pileSizes);
-    Game.Pile pile = game.getPiles().get(0);
+    Game game = new Game(State.PLAYER_1_MOVE, pileSizes);
+    Pile pile = game.getPiles().get(0);
     game.play(pile, pile.getRemaining());
     assertTrue(pile.isEmpty());
   }
 
   @Test
   void play_invalid() {
-    Game game = new Game(Game.State.PLAYER_1_MOVE, pileSizes);
-    Game.Pile pile = game.getPiles().get(0);
+    Game game = new Game(State.PLAYER_1_MOVE, pileSizes);
+    Pile pile = game.getPiles().get(0);
     assertThrows(IllegalArgumentException.class, () -> game.play(pile, pile.getRemaining() + 1));
   }
 
   @Test
   void play_alreadyFinished() {
-    Game game = new Game(Game.State.PLAYER_1_MOVE, pileSizes);
-    for (Game.Pile pile : game.getPiles()) {
+    Game game = new Game(State.PLAYER_1_MOVE, pileSizes);
+    for (Pile pile : game.getPiles()) {
       game.play(pile, pile.getRemaining());
     }
     assertThrows(IllegalStateException.class, () -> game.play(game.getPiles().get(0), 1));
@@ -53,8 +53,8 @@ class GameTest {
 
   @Test
   void isFinished_some() {
-    Game game = new Game(Game.State.PLAYER_1_MOVE, pileSizes);
-    for (Game.Pile pile : game.getPiles()) {
+    Game game = new Game(State.PLAYER_1_MOVE, pileSizes);
+    for (Pile pile : game.getPiles()) {
       game.play(pile, pile.getRemaining() - 1);
     }
     assertFalse(game.isFinished());
@@ -62,8 +62,8 @@ class GameTest {
 
   @Test
   void isFinished_none() {
-    Game game = new Game(Game.State.PLAYER_1_MOVE, pileSizes);
-    for (Game.Pile pile : game.getPiles()) {
+    Game game = new Game(State.PLAYER_1_MOVE, pileSizes);
+    for (Pile pile : game.getPiles()) {
       game.play(pile, pile.getRemaining());
     }
     assertTrue(game.isFinished());
@@ -76,12 +76,12 @@ class GameTest {
 
     @Test
     void constructor_invalid() {
-      assertThrows(IllegalArgumentException.class, () -> new Game.Pile(-1));
+      assertThrows(IllegalArgumentException.class, () -> new Pile(-1));
     }
 
     @Test
     void remove_valid() {
-      Game.Pile pile = new Game.Pile(PILE_SIZE);
+      Pile pile = new Pile(PILE_SIZE);
       int quantity = 3;
       int expectedRemaining = PILE_SIZE - quantity;
       assertEquals(expectedRemaining, pile.remove(quantity));
@@ -91,20 +91,20 @@ class GameTest {
 
     @Test
     void remove_invalid() {
-      Game.Pile pile = new Game.Pile(PILE_SIZE);
+      Pile pile = new Pile(PILE_SIZE);
       assertThrows(IllegalArgumentException.class, () -> pile.remove(PILE_SIZE + 1));
     }
 
     @Test
     void isEmpty_some() {
-      Game.Pile pile = new Game.Pile(PILE_SIZE);
+      Pile pile = new Pile(PILE_SIZE);
       pile.remove(PILE_SIZE - 1);
       assertFalse(pile.isEmpty());
     }
 
     @Test
     void isEmpty_none() {
-      Game.Pile pile = new Game.Pile(PILE_SIZE);
+      Pile pile = new Pile(PILE_SIZE);
       pile.remove(PILE_SIZE);
       assertTrue(pile.isEmpty());
     }

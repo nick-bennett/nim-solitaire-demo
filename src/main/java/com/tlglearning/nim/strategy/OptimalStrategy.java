@@ -1,7 +1,7 @@
 package com.tlglearning.nim.strategy;
 
 import com.tlglearning.nim.model.Game;
-import com.tlglearning.nim.model.Game.Pile;
+import com.tlglearning.nim.model.Pile;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
