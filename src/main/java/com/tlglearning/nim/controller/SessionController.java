@@ -1,6 +1,7 @@
 package com.tlglearning.nim.controller;
 
 import com.tlglearning.nim.model.Game;
+import com.tlglearning.nim.model.Move;
 import com.tlglearning.nim.model.State;
 import com.tlglearning.nim.model.Tally;
 import com.tlglearning.nim.strategy.Strategy;
@@ -73,7 +74,7 @@ public class SessionController {
     return !input.startsWith(negativeResponse);
   }
 
-  public class GameController {
+  private class GameController {
 
     private final Game game;
     private final GameView gameView;
@@ -89,12 +90,12 @@ public class SessionController {
 
     public State play() throws IOException {
       State state = game.getState();
-      int[] move;
+      Move move;
       BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
       while (!state.isTerminal()) {
         if (state == State.PLAYER_1_MOVE) {
           move = strategy.selectMove(game);
-          game.play(game.getPiles().get(move[0] - 1), move[1]);
+          game.play(move);
         } else {
           move = getAndApplyUserMove();
         }
@@ -105,12 +106,12 @@ public class SessionController {
       return state;
     }
 
-    private int[] getAndApplyUserMove() throws IOException {
-      int[] move = null;
+    private Move getAndApplyUserMove() throws IOException {
+      Move move = null;
       int numPiles = game.getPiles().size();
       int pileNumber = 0;
       int quantity = 0;
-      while (move == null) {
+      while (true) {
         try {
           writer.print(gameView.toString(game));
           String input = reader.readLine().trim();
@@ -123,8 +124,9 @@ public class SessionController {
           if (pileNumber < 1 || pileNumber > numPiles || quantity < 1) {
             throw new IllegalArgumentException();
           }
-          game.play(game.getPiles().get(pileNumber - 1), quantity);
-          move = new int[]{pileNumber, quantity};
+          move = new Move(pileNumber, game.getPiles().get(pileNumber - 1), quantity);
+          game.play(move);
+          break;
         } catch (IllegalArgumentException e) {
           writer.printf(invalidMoveFormat, pileNumber, quantity, numPiles);
         }

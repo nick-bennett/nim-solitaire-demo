@@ -1,5 +1,6 @@
 package com.tlglearning.nim.view;
 
+import com.tlglearning.nim.model.Move;
 import com.tlglearning.nim.model.State;
 import java.util.ResourceBundle;
 
@@ -16,10 +17,10 @@ public class MoveView {
     moveFormat = bundle.getString(MOVE_FORMAT_KEY);
   }
 
-  public String toString(State state, int[] move) {
+  public String toString(State state, Move move) {
     return String.format(
         moveFormat, bundle.getString(state.toString().toLowerCase() + PLAYER_KEY_SUFFIX),
-        move[0], move[1]);
+        move.getPileNumber(), move.getQuantity());
   }
 
 }

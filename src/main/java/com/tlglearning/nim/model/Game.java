@@ -27,11 +27,11 @@ public class Game {
         .collect(Collectors.toList());
   }
 
-  public void play(Pile pile, int quantity) throws IllegalArgumentException {
+  public void play(Move move) throws IllegalArgumentException {
     if (state.isTerminal()) {
       throw new IllegalStateException(String.format(NO_MOVES_ALLOWED_FORMAT, state));
     }
-    pile.remove(quantity);
+    move.getPile().remove(move.getQuantity());
     state = isFinished() ? state.nextWinState() : state.nextMoveState();
   }
 

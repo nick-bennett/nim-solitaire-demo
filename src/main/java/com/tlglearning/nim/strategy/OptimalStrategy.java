@@ -1,6 +1,7 @@
 package com.tlglearning.nim.strategy;
 
 import com.tlglearning.nim.model.Game;
+import com.tlglearning.nim.model.Move;
 import com.tlglearning.nim.model.Pile;
 import java.util.Iterator;
 import java.util.List;
@@ -12,12 +13,13 @@ public class OptimalStrategy implements Strategy {
   private final Random rng = new Random();
 
   @Override
-  public int[] selectMove(Game game) {
+  public Move selectMove(Game game) {
     List<Pile> piles = game.getPiles();
     int nimSum = getNimSum(piles);
     int[][] candidateMoves =
         (nimSum != 0) ? getOptimalCandidates(piles, nimSum) : getNonOptimalCandidates(piles);
-    return candidateMoves[rng.nextInt(candidateMoves.length)];
+    int[] selection = candidateMoves[rng.nextInt(candidateMoves.length)];
+    return new Move(selection[0], piles.get(selection[0] - 1), selection[1]);
   }
 
   private static int getNimSum(List<Pile> piles) {

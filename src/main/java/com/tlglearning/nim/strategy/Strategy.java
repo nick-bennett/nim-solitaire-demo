@@ -1,9 +1,10 @@
 package com.tlglearning.nim.strategy;
 
 import com.tlglearning.nim.model.Game;
+import com.tlglearning.nim.model.Move;
 
 public interface Strategy {
 
-  int[] selectMove(Game game);
+  Move selectMove(Game game);
 
 }
