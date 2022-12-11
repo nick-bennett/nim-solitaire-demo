@@ -2,12 +2,7 @@ package com.tlglearning.nim.model;
 
 public enum State {
 
-  PLAYER_1_MOVE {
-    @Override
-    public boolean isTerminal() {
-      return false;
-    }
-
+  PLAYER_1_MOVE(false) {
     @Override
     public State nextMoveState() {
       return PLAYER_2_MOVE;
@@ -18,12 +13,7 @@ public enum State {
       return PLAYER_1_WIN;
     }
   },
-  PLAYER_2_MOVE {
-    @Override
-    public boolean isTerminal() {
-      return false;
-    }
-
+  PLAYER_2_MOVE(false) {
     @Override
     public State nextMoveState() {
       return PLAYER_1_MOVE;
@@ -34,11 +24,18 @@ public enum State {
       return PLAYER_2_WIN;
     }
   },
-  PLAYER_1_WIN,
-  PLAYER_2_WIN;
+  PLAYER_1_WIN(true),
+  PLAYER_2_WIN(true);
+
+  private final boolean terminal;
+
+  State(boolean terminal) {
+    this.terminal = terminal;
+  }
+
 
   public boolean isTerminal() {
-    return true;
+    return terminal;
   }
 
   public State nextMoveState() {

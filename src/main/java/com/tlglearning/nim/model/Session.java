@@ -21,4 +21,8 @@ public class Session {
     return losses;
   }
 
+  public int getTotal() {
+    return wins + losses;
+  }
+
 }

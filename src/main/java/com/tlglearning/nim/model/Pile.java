@@ -2,16 +2,16 @@ package com.tlglearning.nim.model;
 
 public class Pile {
 
-  private static final String BAD_SIZE_FORMAT = "Invalid size: %d; must be non-negative.";
-  private static final String BAD_REMOVE_QUANTITY_FORMAT =
-      "Invalid quantity: %d; must not exceed number remaining (%d).";
-  private static final String TO_STRING_FORMAT = "Pile{removed=%d, remaining=%d}";
+  private static final String BAD_SIZE_FORMAT = "Invalid size: %d. Initial size must be positive.";
+  private static final String EXCESS_REMOVAL_FORMAT =
+      "Invalid quantity: %d. Quantity to remove must not exceed number remaining (%d).";
+  private static final String TO_STRING_FORMAT = "%s{removed=%d, remaining=%d}";
 
   private int removed;
   private int remaining;
 
   public Pile(int size) throws IllegalArgumentException {
-    if (size < 0) {
+    if (size <= 0) {
       throw new IllegalArgumentException(String.format(BAD_SIZE_FORMAT, size));
     }
     removed = 0;
@@ -20,8 +20,7 @@ public class Pile {
 
   int remove(int quantity) throws IllegalArgumentException {
     if (quantity > remaining) {
-      throw new IllegalArgumentException(
-          String.format(BAD_REMOVE_QUANTITY_FORMAT, quantity, remaining));
+      throw new IllegalArgumentException(String.format(EXCESS_REMOVAL_FORMAT, quantity, remaining));
     }
     removed += quantity;
     return (remaining -= quantity);
@@ -41,6 +40,7 @@ public class Pile {
 
   @Override
   public String toString() {
-    return String.format(TO_STRING_FORMAT, removed, remaining);
+    return String.format(TO_STRING_FORMAT, getClass().getSimpleName(), removed, remaining);
   }
+
 }
