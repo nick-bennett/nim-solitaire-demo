@@ -1,6 +1,6 @@
 package com.tlglearning.nim.model;
 
-public class Session {
+public class Tally {
 
   private int wins;
   private int losses;

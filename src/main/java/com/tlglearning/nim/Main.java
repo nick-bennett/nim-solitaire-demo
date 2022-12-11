@@ -3,7 +3,9 @@ package com.tlglearning.nim;
 import com.tlglearning.nim.controller.SessionController;
 import com.tlglearning.nim.model.State;
 import com.tlglearning.nim.strategy.OptimalStrategy;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ResourceBundle;
 
 public class Main {
@@ -13,9 +15,11 @@ public class Main {
 
   public static void main(String[] args) throws IOException {
     new SessionController(
+        new BufferedReader(new InputStreamReader(System.in)),
+        System.out,
+        ResourceBundle.getBundle(BUNDLE_NAME),
         State.PLAYER_1_MOVE,
         new OptimalStrategy(),
-        ResourceBundle.getBundle(BUNDLE_NAME),
         pileSizes
     ).play();
   }

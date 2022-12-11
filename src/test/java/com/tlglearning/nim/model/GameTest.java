@@ -8,28 +8,30 @@ import org.junit.jupiter.api.Test;
 
 class GameTest {
 
-  private int[] pileSizes;
+  private int[] validPileSizes;
+  private int[] invalidPileSizes;
 
   @BeforeEach
   void setUp() {
-    pileSizes = new int[]{3, 5, 7};
+    validPileSizes = new int[]{3, 5, 7};
+    invalidPileSizes = new int[]{0, 5, 7};
   }
 
   @Test
   void constructor_badState() {
     assertThrows(IllegalArgumentException.class,
-        () -> new Game(State.PLAYER_1_WIN, pileSizes));
+        () -> new Game(State.PLAYER_1_WIN, validPileSizes));
   }
 
   @Test
   void constructor_badPileSizes() {
     assertThrows(IllegalArgumentException.class,
-        () -> new Game(State.PLAYER_1_MOVE, pileSizes));
+        () -> new Game(State.PLAYER_1_MOVE, invalidPileSizes));
   }
 
   @Test
   void play_valid() {
-    Game game = new Game(State.PLAYER_1_MOVE, pileSizes);
+    Game game = new Game(State.PLAYER_1_MOVE, validPileSizes);
     Pile pile = game.getPiles().get(0);
     game.play(pile, pile.getRemaining());
     assertTrue(pile.isEmpty());
@@ -37,14 +39,14 @@ class GameTest {
 
   @Test
   void play_invalid() {
-    Game game = new Game(State.PLAYER_1_MOVE, pileSizes);
+    Game game = new Game(State.PLAYER_1_MOVE, validPileSizes);
     Pile pile = game.getPiles().get(0);
     assertThrows(IllegalArgumentException.class, () -> game.play(pile, pile.getRemaining() + 1));
   }
 
   @Test
   void play_alreadyFinished() {
-    Game game = new Game(State.PLAYER_1_MOVE, pileSizes);
+    Game game = new Game(State.PLAYER_1_MOVE, validPileSizes);
     for (Pile pile : game.getPiles()) {
       game.play(pile, pile.getRemaining());
     }
@@ -53,7 +55,7 @@ class GameTest {
 
   @Test
   void isFinished_some() {
-    Game game = new Game(State.PLAYER_1_MOVE, pileSizes);
+    Game game = new Game(State.PLAYER_1_MOVE, validPileSizes);
     for (Pile pile : game.getPiles()) {
       game.play(pile, pile.getRemaining() - 1);
     }
@@ -62,7 +64,7 @@ class GameTest {
 
   @Test
   void isFinished_none() {
-    Game game = new Game(State.PLAYER_1_MOVE, pileSizes);
+    Game game = new Game(State.PLAYER_1_MOVE, validPileSizes);
     for (Pile pile : game.getPiles()) {
       game.play(pile, pile.getRemaining());
     }

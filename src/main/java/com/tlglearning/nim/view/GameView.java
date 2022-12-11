@@ -33,6 +33,7 @@ public class GameView {
         .collect(Collectors.joining(PILE_SEPARATOR, PREFIX, SUFFIX));
   }
 
+  @SuppressWarnings("UnnecessaryUnicodeEscape")
   private class PileView {
 
     private static final String PILE_FORMAT_SINGLE_KEY = "pile_format_single";

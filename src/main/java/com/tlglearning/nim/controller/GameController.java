@@ -8,23 +8,28 @@ import com.tlglearning.nim.view.MoveView;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class GameController {
 
-  private static final Pattern MOVE_INPUT_PATTERN = Pattern.compile("(\\d+)\\s+(\\d+)");
+  private static final Pattern MOVE_INPUT_PATTERN = Pattern.compile("^\\s*(\\d+)\\s+(\\d+)\\s*$");
   private static final String INVALID_MOVE_FORMAT_KEY = "invalid_move_format";
 
+  private final BufferedReader reader;
+  private final PrintStream writer;
   private final Game game;
   private final GameView gameView;
   private final MoveView moveView;
   private final Strategy strategy;
   private final String invalidMoveFormat;
 
-  public GameController(
-      State initialState, Strategy strategy, ResourceBundle bundle, int... pileSizes) {
+  public GameController(BufferedReader reader, PrintStream writer, ResourceBundle bundle,
+      State initialState, Strategy strategy, int... pileSizes) {
+    this.reader = reader;
+    this.writer = writer;
     game = new Game(initialState, pileSizes);
     gameView = new GameView(bundle);
     moveView = new MoveView(bundle);
@@ -41,24 +46,24 @@ public class GameController {
         move = strategy.selectMove(game);
         game.play(game.getPiles().get(move[0] - 1), move[1]);
       } else {
-        move = getAndApplyUserMove(reader);
+        move = getAndApplyUserMove();
       }
-      System.out.print(moveView.toString(state, move));
+      writer.print(moveView.toString(state, move));
       state = game.getState();
     }
-    System.out.print(gameView.toString(game));
+    writer.print(gameView.toString(game));
     return state;
   }
 
-  private int[] getAndApplyUserMove(BufferedReader reader) throws IOException {
+  private int[] getAndApplyUserMove() throws IOException {
     int[] move = null;
     int numPiles = game.getPiles().size();
     int pileNumber = 0;
     int quantity = 0;
     while (move == null) {
       try {
-        System.out.print(gameView.toString(game));
-        String input = reader.readLine();
+        writer.print(gameView.toString(game));
+        String input = this.reader.readLine();
         input = input.trim();
         Matcher matcher = MOVE_INPUT_PATTERN.matcher(input);
         if (!matcher.matches()) {
@@ -72,7 +77,7 @@ public class GameController {
         game.play(game.getPiles().get(pileNumber - 1), quantity);
         move = new int[]{pileNumber, quantity};
       } catch (IllegalArgumentException e) {
-        System.out.printf(invalidMoveFormat, pileNumber, quantity, numPiles);
+        writer.printf(invalidMoveFormat, pileNumber, quantity, numPiles);
       }
     }
     return move;
