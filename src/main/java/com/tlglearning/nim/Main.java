@@ -13,6 +13,10 @@ public class Main {
   private static final String BUNDLE_NAME = "ui-strings";
   private static final int[] pileSizes = {3, 5, 7};
 
+  private Main() {
+    // By making this private, it is removed from default Javadocs and UML diagrams.
+  }
+
   public static void main(String[] args) throws IOException {
     new SessionController(
         new BufferedReader(new InputStreamReader(System.in)),
