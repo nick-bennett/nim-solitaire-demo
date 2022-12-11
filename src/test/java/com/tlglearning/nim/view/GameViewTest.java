@@ -20,12 +20,16 @@ class GameViewTest {
 
   @Test
   void toString_initial() {
+    // This method doesn't assert anything about the result of the toString(Game) method;
+    // it is only being used to display output for the programmer to check visually.
     Game game = new Game(State.PLAYER_1_MOVE, INITIAL_PILE_SIZES);
     System.out.println(new GameView(bundle).toString(game));
   }
 
   @Test
   void toString_inProgress() {
+    // This method doesn't assert anything about the result of the toString(Game) method;
+    // it is only being used to display output for the programmer to check visually.
     Game game = new Game(State.PLAYER_1_MOVE, INITIAL_PILE_SIZES);
     Random random = new Random();
     game
